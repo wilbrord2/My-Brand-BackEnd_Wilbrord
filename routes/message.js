@@ -13,20 +13,20 @@ routes.get("/", async (req, res) => {
 });
 
 // // Sending Data to database
-// routes.post("/", async (req, res) => {
-//   const Mypost = new Post({
-//     name: req.body.Name,
-//     email: req.body.Email,
-//     subject: req.body.Subject,
-//     Message: req.body.Message,
-//   });
-//   try {
-//     const SavedPost = await Mypost.save();
-//     res.json(SavedPost);
-//   } catch (err) {
-//     res.json({ message: err.message });
-//   }
-// });
+routes.post("/", async (req, res) => {
+  const Mypost = new Post({
+    name: req.body.Name,
+    email: req.body.Email,
+    subject: req.body.Subject,
+    Message: req.body.Message,
+  });
+  try {
+    const SavedPost = await Mypost.save();
+    res.json(SavedPost);
+  } catch (err) {
+    res.json({ message: err.message });
+  }
+});
 
 // SEARCH FOR A SPECIFIC POST
 

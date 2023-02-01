@@ -5,34 +5,21 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv/config");
-const Post = require("./models/contactMessageScheme");
-
 // ROUTES
 const postsRout = require("./routes/message");
+const userRout = require("./routes/user");
+const userverifiedToken = require("./routes/authverified");
 // Middlewares
-app.use("/messages", postsRout);
 // bodyParser
 app.use(bodyParser.json());
+app.use("/messages", postsRout);
+app.use("/api/user", userRout);
+app.use("/api/access", userverifiedToken);
 app.use(cors());
 
 // ROUTES
 app.get("/", (req, res) => {
   res.send("Contact-Page");
-});
-
-app.post("/", async (req, res) => {
-  const Mypost = new Post({
-    name: req.body.Name,
-    email: req.body.Email,
-    subject: req.body.Subject,
-    Message: req.body.Message,
-  });
-  try {
-    const SavedPost = await Mypost.save();
-    res.json(SavedPost);
-  } catch (err) {
-    res.json({ message: err.message });
-  }
 });
 
 //CONNECT TO db
