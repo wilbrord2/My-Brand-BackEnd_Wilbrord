@@ -20,5 +20,4 @@ const signInvalidation = (data) => {
   return scheme.validate(data);
 };
 
-module.exports.signUpvalidation = signUpvalidation;
-module.exports.signInvalidation = signInvalidation;
+export { signUpvalidation, signInvalidation };

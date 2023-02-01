@@ -1,19 +1,9 @@
-const express = require("express");
-const routes = express.Router();
-const User = require("./../models/registerSdcheme");
-const jwt = require("jsonwebtoken");
-const {
-  signUpvalidation,
-  signInvalidation,
-} = require("./../validation/validation");
-const bcrypt = require("bcryptjs");
-// check we are on page
-routes.get("/register", async (req, res) => {
-  res.send("we are on register page");
-});
+import User from "../models/registerSdcheme";
+import jwt from "jsonwebtoken";
+import { signUpvalidation, signInvalidation } from "../validation/validation";
+import bcrypt from "bcryptjs";
 
-// Sending Data to database
-routes.post("/register", async (req, res) => {
+const createUser = async (req, res) => {
   // CHECK VALIDATION
   const { error } = signUpvalidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -40,12 +30,9 @@ routes.post("/register", async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-});
+};
 
-//LOGIN
-
-// Sending Data to database
-routes.post("/login", async (req, res) => {
+const loginUser = async (req, res) => {
   // CHECK VALIDATION
   const { error } = signInvalidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -59,6 +46,5 @@ routes.post("/login", async (req, res) => {
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
   res.header("auth-token", token).send(token);
-});
-
-module.exports = routes;
+};
+export { createUser, loginUser };

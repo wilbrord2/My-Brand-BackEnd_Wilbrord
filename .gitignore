@@ -1,3 +1,5 @@
 node_modules
-Post.js
-posts.js
+dist
+lib
+coverage
+.nyc_output

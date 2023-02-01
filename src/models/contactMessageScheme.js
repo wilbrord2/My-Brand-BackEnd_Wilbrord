@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const messageScheme = mongoose.Schema({
   name: {
     type: String,

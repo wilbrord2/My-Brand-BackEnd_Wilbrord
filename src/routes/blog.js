@@ -2,7 +2,7 @@ const express = require("express");
 const routes = express.Router();
 const Post = require("../models/Post");
 
-// Display al data from database
+// Display all Blogs from database
 routes.get("/", async (req, res) => {
   try {
     const SavedPost = await Post.find();
@@ -12,7 +12,7 @@ routes.get("/", async (req, res) => {
   }
 });
 
-// Sending Data from database
+// Sending Blog to database
 routes.post("/", async (req, res) => {
   const Mypost = new Post({
     title: req.body.title,
@@ -26,11 +26,11 @@ routes.post("/", async (req, res) => {
   }
 });
 
-// SEARCH FOR A SPECIFIC POST
+// SEARCH FOR A SPECIFIC BLOG
 
-routes.get("/:postId", async (req, res) => {
+routes.get("/:blogId", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.postId);
+    const post = await Post.findById(req.params.blogId);
     res.json(post);
   } catch (err) {
     res.json(err);
@@ -38,9 +38,9 @@ routes.get("/:postId", async (req, res) => {
 });
 
 // delete a specific post
-routes.delete("/:postId", async (req, res) => {
+routes.delete("/:blogId", async (req, res) => {
   try {
-    const removed = await Post.remove({ _id: req.params.postId });
+    const removed = await Post.remove({ _id: req.params.blogId });
     res.json(removed);
   } catch (err) {
     res.json(err);
@@ -49,10 +49,10 @@ routes.delete("/:postId", async (req, res) => {
 
 // UPPDATE A POST
 
-routes.patch("/:postId", async (req, res) => {
+routes.patch("/:blogId", async (req, res) => {
   try {
     const update = await Post.updateOne(
-      { _id: req.params.postId },
+      { _id: req.params.blogId },
       { $set: { title: req.body.title } }
     );
     res.json(update);

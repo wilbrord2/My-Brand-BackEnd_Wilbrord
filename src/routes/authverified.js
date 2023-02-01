@@ -1,5 +1,6 @@
-const routes = require("express").Router();
-const verify = require("./verifyToken");
+import express from "express";
+import verify from "./verifyToken";
+const routes = express.Router();
 
 routes.get("/post", verify, (req, res) => {
   res.json({
@@ -7,4 +8,4 @@ routes.get("/post", verify, (req, res) => {
   });
 });
 
-module.exports = routes;
+export default routes;
