@@ -10,12 +10,14 @@ dotenv.config();
 import messageRouts from "./routes/message";
 import userRout from "./routes/user";
 import userverifiedToken from "./routes/authverified";
+import articleRoutes from "./routes/blog";
 // Middlewares
 // bodyParser
 app.use(bodyParser.json());
 app.use("/api/messages", messageRouts);
 app.use("/api/user", userRout);
 app.use("/api/access", userverifiedToken);
+app.use("/api/article", articleRoutes);
 app.use(cors());
 
 // ROUTES

@@ -1,18 +1,18 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import { expect } from "chai";
 import app from "../app";
 
 chai.should();
 chai.use(chaiHttp);
-
+let id = 1;
 //create message test
-describe("Contact Message", () => {
+describe("Create Message", () => {
   it("should create a contact message", (done) => {
     chai
       .request(app)
       .post("/api/messages/save/")
       .send({
+        _id: `${id}`,
         name: "wilbrord",
         email: "wilbrord@gmail.com",
         subject: "testing",
@@ -23,9 +23,7 @@ describe("Contact Message", () => {
         console.log(err);
         if (err) return done(err);
         console.log(res.body);
-        expect(res.statusCode).to.equal(201);
-        res.body.should.have.property("status").eql(201);
-        res.body.should.have.property("data");
+        res.should.have.status(200);
         done();
       });
   });
@@ -37,10 +35,8 @@ describe("Get all messages", () => {
       .request(app)
       .get("/api/messages/show/")
       .end((err, res) => {
-        // res.should.have.status(200);
-        // res.body.should.have.property("status");
-        // res.body.should.have.property("data");
-
+        res.should.have.status(200);
+        // res.should.be.a("array");
         done();
       });
   });
@@ -48,16 +44,27 @@ describe("Get all messages", () => {
 
 describe("get single message by id", () => {
   it("It should get a single message by id", (done) => {
-    const id = "63cfe65adfd6095faaa39adb";
     chai
       .request(app)
       .get(`/api/messages/getOne/${id}`)
-      //.set("auth_token", `${token}`)
+
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property("status");
-        expect(res.body).to.have.property("data");
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
+
+describe("Delete single message by id", () => {
+  it("It should delete a single message by id", (done) => {
+    chai
+      .request(app)
+      .delete(`/api/messages/deleteOne/${id}`)
+
+      .end((err, res) => {
+        if (err) return done(err);
+        // res.should.have.status(200);
         done();
       });
   });

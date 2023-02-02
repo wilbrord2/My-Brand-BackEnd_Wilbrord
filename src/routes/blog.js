@@ -1,64 +1,27 @@
-const express = require("express");
+import express from "express";
+import {
+  createArticle,
+  displayAllArticle,
+  getSingleArticle,
+  deleteArticle,
+  UpdateArticle,
+} from "../contollers/blogController";
 const routes = express.Router();
-const Post = require("../models/Post");
 
 // Display all Blogs from database
-routes.get("/", async (req, res) => {
-  try {
-    const SavedPost = await Post.find();
-    res.json(SavedPost);
-  } catch (err) {
-    res.json({ message: err.message });
-  }
-});
+routes.get("/getAllArticle", displayAllArticle);
 
-// Sending Blog to database
-routes.post("/", async (req, res) => {
-  const Mypost = new Post({
-    title: req.body.title,
-    description: req.body.description,
-  });
-  try {
-    const SavedPost = await Mypost.save();
-    res.json(SavedPost);
-  } catch (err) {
-    res.json({ message: err.message });
-  }
-});
+// create Blog to database
+routes.post("/createArticle", createArticle);
 
 // SEARCH FOR A SPECIFIC BLOG
 
-routes.get("/:blogId", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.blogId);
-    res.json(post);
-  } catch (err) {
-    res.json(err);
-  }
-});
+routes.get("/getSingleArticle/:blogId", getSingleArticle);
 
 // delete a specific post
-routes.delete("/:blogId", async (req, res) => {
-  try {
-    const removed = await Post.remove({ _id: req.params.blogId });
-    res.json(removed);
-  } catch (err) {
-    res.json(err);
-  }
-});
+routes.delete("/deleteArticle/:blogId", deleteArticle);
 
 // UPPDATE A POST
 
-routes.patch("/:blogId", async (req, res) => {
-  try {
-    const update = await Post.updateOne(
-      { _id: req.params.blogId },
-      { $set: { title: req.body.title } }
-    );
-    res.json(update);
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-module.exports = routes;
+routes.patch("/UpdateArticle/:blogId", UpdateArticle);
+export default routes;

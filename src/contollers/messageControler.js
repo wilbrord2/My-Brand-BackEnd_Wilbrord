@@ -8,7 +8,7 @@ const GetAllMessage = async (req, res) => {
   }
 };
 
-const SaveMessage = async (req, res, next) => {
+const SaveMessage = async (req, res) => {
   const Mypost = new Post({
     name: req.body.name,
     email: req.body.email,
@@ -21,26 +21,23 @@ const SaveMessage = async (req, res, next) => {
   } catch (err) {
     res.status(202).json({ message: err.message });
   }
-  next();
 };
 
-const SearchMessage = async (req, res, next) => {
+const SearchMessage = async (req, res) => {
   try {
     const post = await Post.findById(req.params.messageId);
     res.json(post);
   } catch (err) {
     res.json(err);
   }
-  next();
 };
 
-const deleteMessage = async (req, res, next) => {
+const deleteMessage = async (req, res) => {
   try {
     const removed = await Post.remove({ _id: req.params.messageId });
     res.json(removed);
   } catch (err) {
     res.json(err);
   }
-  next();
 };
 export { GetAllMessage, SaveMessage, SearchMessage, deleteMessage };
