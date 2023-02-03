@@ -32,6 +32,32 @@ const createUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const SavedUser = await User.find();
+    res.json(SavedUser);
+  } catch (err) {
+    res.json({ message: err.message });
+  }
+};
+const getSingleUser = async (req, res) => {
+  try {
+    const User = await User.findById(req.params.userId);
+    res.json(User);
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+const deleteaUser = async (req, res) => {
+  try {
+    const removed = await User.remove({ _id: req.params.userId });
+    res.json(removed);
+  } catch (err) {
+    res.json(err);
+  }
+};
+
 const loginUser = async (req, res) => {
   // CHECK VALIDATION
   const { error } = signInvalidation(req.body);
@@ -47,4 +73,4 @@ const loginUser = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
   res.header("auth-token", token).send(token);
 };
-export { createUser, loginUser };
+export { createUser, getAllUsers, getSingleUser, deleteaUser, loginUser };

@@ -3,8 +3,10 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
-const app = express();
 import dotenv from "dotenv";
+import swaggerDoc from "swagger-ui-express";
+import swaggerDocumentations from "./helpers/documentation";
+const app = express();
 dotenv.config();
 // ROUTES
 import messageRouts from "./routes/message";
@@ -18,6 +20,8 @@ app.use("/api/messages", messageRouts);
 app.use("/api/user", userRout);
 app.use("/api/access", userverifiedToken);
 app.use("/api/article", articleRoutes);
+app.use("/documentation", swaggerDoc.serve);
+app.use("/documentation", swaggerDoc.setup(swaggerDocumentations));
 app.use(cors());
 
 // ROUTES
