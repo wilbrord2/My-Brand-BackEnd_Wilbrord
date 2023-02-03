@@ -1,7 +1,7 @@
-//get all messages swagger documentation
-const listOfAllMessages = {
-  tags: ["Messages"],
-  description: "list of all Messages",
+//get all User swagger documentation
+const listOfAllUser = {
+  tags: ["User"],
+  description: "list of all User",
 
   // security: [
   //   {
@@ -19,8 +19,6 @@ const listOfAllMessages = {
               _id: "63c5554511120c1b217b1d31",
               name: "Wilbrord",
               email: "wilbrord@gmail.com",
-              subject: "greetings",
-              Message: "helloo",
               __v: 0,
             },
           },
@@ -31,9 +29,9 @@ const listOfAllMessages = {
 };
 //create a blog swagger documentation
 
-const createmessage = {
-  tags: ["Messages"],
-  description: "create a new message",
+const createuser = {
+  tags: ["User"],
+  description: "create a new user",
 
   requestBody: {
     content: {
@@ -53,16 +51,16 @@ const createmessage = {
               example: "email@gmail.com",
             },
 
-            subject: {
+            password: {
               type: "string",
-              description: "message",
+              description: "user",
               example: "Learning",
             },
 
-            Message: {
+            repassword: {
               type: "string",
-              description: "message",
-              example: "study hard",
+              description: "user",
+              example: "Learning",
             },
           },
         },
@@ -79,8 +77,6 @@ const createmessage = {
                 _id: "63ccde6635bde581af696708",
                 name: "Wilbrord",
                 Email: "wilbrord@gmail.com",
-                subject: "dance",
-                message: "dancing",
               },
             },
           },
@@ -91,11 +87,9 @@ const createmessage = {
 };
 
 //get single blog by id swagger documentation
-const getonemessage = {
-  tags: ["Messages"],
-  summary: "get user by path id",
-  description: "get single message by id",
-
+const getOneUser = {
+  tags: ["User"],
+  description: "get single user by id",
   security: [
     {
       auth_token: [],
@@ -107,7 +101,7 @@ const getonemessage = {
       in: "path",
       description: "id of the user",
       type: "string",
-      example: "hfbjsd2345njndfjhcbe3",
+      example: "",
     },
   ],
   responses: {
@@ -122,21 +116,21 @@ const getonemessage = {
       },
     },
     404: {
-      description: "message not found",
+      description: "user not found",
     },
   },
 };
 
 //delete a blog swagger documentation
-const deletemessage = {
-  tags: ["Messages"],
-  description: "Delete a message",
+const deleteUser = {
+  tags: ["User"],
+  description: "Delete a user",
   security: [{ auth_token: [] }],
   parameters: [
     {
       name: "id",
       in: "path",
-      description: "ID of the message to delete",
+      description: "ID of the user to delete",
       required: true,
       type: "string",
     },
@@ -153,19 +147,19 @@ const deletemessage = {
     },
   },
 };
-const messageRouteDoc = {
-  "/api/messages/save": {
-    post: createmessage,
+const userRouteDoc = {
+  "/api/user/getAllUsers": {
+    get: listOfAllUser,
   },
-  "/api/messages/show": {
-    get: listOfAllMessages,
+  "/api/user/createUser": {
+    post: createuser,
   },
-  "/api/messages/getOne/{id}": {
-    get: getonemessage,
+  "/api/user/getSingleUser/{id}": {
+    get: getOneUser,
   },
-  "/api/messages/deleteOne/{id}": {
-    delete: deletemessage,
+  "/api/user/deleteUser/{id}": {
+    delete: deleteUser,
   },
 };
 
-export default messageRouteDoc;
+export default userRouteDoc;

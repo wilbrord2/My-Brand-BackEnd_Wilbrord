@@ -3,7 +3,7 @@ import {
   createUser,
   getAllUsers,
   getSingleUser,
-  deleteaUser,
+  deleteUser,
   loginUser,
 } from "../contollers/userController";
 const routes = express.Router();
@@ -15,10 +15,10 @@ routes.get("/register", async (req, res) => {
 
 // SIGN-UP
 
-routes.post("/register", createUser);
-routes.get("/getAllUser", getAllUsers);
-routes.get("/getSingleUser", getSingleUser);
-routes.delete("/deleteaUser", deleteaUser);
+routes.post("/createUser", createUser);
+routes.get("/getAllUsers", getAllUsers);
+routes.get("/getSingleUser/:userId", getSingleUser);
+routes.delete("/deleteUser/:userId", deleteUser);
 
 //LOGIN
 routes.post("/login", loginUser);
