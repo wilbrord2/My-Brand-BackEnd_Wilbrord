@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 //CONNECT TO db
 const connectDB = async () => {
   try {
+    mongoose.set("strictQuery", true);
     const conn = await mongoose.connect(process.env.DB_CONNECTION);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
@@ -47,14 +48,5 @@ connectDB().then(() => {
     console.log("connect to DB");
   });
 });
-
-// mongoose.set("strictQuery", true);
-// mongoose.connect(process.env.DB_CONNECTION, () => {
-//   console.log("connected to DB");
-// });
-
-// // Listen to the server
-
-// app.listen(3000);
 
 export default app;
