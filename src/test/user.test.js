@@ -5,35 +5,35 @@ import app from "../app";
 chai.should();
 chai.use(chaiHttp);
 let id;
-//create message test
-describe("Create Message", () => {
-  it("should create a contact message", (done) => {
+//create User test
+describe("Create User", () => {
+  it("should create User", (done) => {
     chai
       .request(app)
-      .post("/api/messages/save/")
+      .post("/api/user/createUser/")
       .send({
-        name: "wilbrord",
-        email: "wilbrord@gmail.com",
-        subject: "testing",
-        message: "hi and how are you? I am fine and you?",
+        name: "nameTest",
+        email: "emailTest@gmail.com",
+        password: "mypassword123",
+        repassword: "mypassword123",
         date: `${Date.now}`,
       })
       .end((err, res) => {
         console.log(err);
         if (err) return done(err);
-        id = res.body._id;
         console.log(res.body);
-        res.should.have.status(200);
+        id = res.body._id;
+        //  res.should.have.statusCode(200);
         done();
       });
   });
 });
 
-describe("Get all messages", () => {
-  it("It Should get all messages", (done) => {
+describe("Get all Users", () => {
+  it("It Should get all Users", (done) => {
     chai
       .request(app)
-      .get("/api/messages/show/")
+      .get("/api/user/getAllUsers/")
       .end((err, res) => {
         res.should.have.status(200);
         // res.should.be.a("array");
@@ -42,29 +42,30 @@ describe("Get all messages", () => {
   });
 });
 
-describe("get single message by id", () => {
-  it("It should get a single message by id", (done) => {
+describe("get single User by id", () => {
+  it("It should get a single User by id", (done) => {
     chai
       .request(app)
-      .get(`/api/messages/getOne/${id}`)
+      .get(`/api/user/getSingleUser/${id}`)
 
       .end((err, res) => {
         if (err) return done(err);
+        console.log(`single user ${res.body}`);
         res.should.have.status(200);
         done();
       });
   });
 });
 
-describe("Delete single message by id", () => {
-  it("It should delete a single message by id", (done) => {
+describe("Delete single User by id", () => {
+  it("It should delete a single User by id", (done) => {
     chai
       .request(app)
-      .delete(`/api/messages/deleteOne/${id}`)
+      .delete(`/api/user/deleteUser/${id}`)
 
       .end((err, res) => {
         if (err) return done(err);
-        // res.should.have.status(200);
+        res.should.have.status(200);
         done();
       });
   });

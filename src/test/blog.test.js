@@ -4,7 +4,7 @@ import app from "../app";
 
 chai.should();
 chai.use(chaiHttp);
-let id = 1;
+let id;
 //create article test
 describe("Create article", () => {
   it("should create a contact article", (done) => {
@@ -12,7 +12,6 @@ describe("Create article", () => {
       .request(app)
       .post("/api/article/createArticle/")
       .send({
-        _id: `${id}`,
         title: "testing",
         description: "testing articles",
         date: `${Date.now}`,
@@ -20,7 +19,9 @@ describe("Create article", () => {
       .end((err, res) => {
         console.log(err);
         if (err) return done(err);
+
         console.log(res.body);
+        id = res.body._id;
         res.should.have.status(200);
         done();
       });
@@ -68,17 +69,16 @@ describe("Delete single article by id", () => {
   });
 });
 
-
 describe("Update single article by id", () => {
-    it("It should delete a single article by id", (done) => {
-      chai
-        .request(app)
-        .patch(`/api/article/UpdateArticle/${id}`)
-  
-        .end((err, res) => {
-          if (err) return done(err);
-          res.should.have.status(200);
-          done();
-        });
-    });
+  it("It should delete a single article by id", (done) => {
+    chai
+      .request(app)
+      .patch(`/api/article/UpdateArticle/${id}`)
+
+      .end((err, res) => {
+        if (err) return done(err);
+        res.should.have.status(200);
+        done();
+      });
   });
+});
