@@ -6,29 +6,23 @@ import cors from "cors";
 import dotenv from "dotenv";
 import swaggerDoc from "swagger-ui-express";
 import swaggerDocumentations from "./helpers/documentation";
+import routes from "./routes";
 const PORT = process.env.PORT || 3000;
 const app = express();
 dotenv.config();
 // ROUTES
-import messageRouts from "./routes/message";
-import userRout from "./routes/user";
-import userverifiedToken from "./routes/authverified";
-import articleRoutes from "./routes/blog";
+
 // Middlewares
 // bodyParser
 app.use(bodyParser.json());
-app.use("/api/messages", messageRouts);
-app.use("/api/user", userRout);
-app.use("/api/access", userverifiedToken);
-app.use("/api/article", articleRoutes);
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+app.use("/api", routes);
 app.use("/documentation", swaggerDoc.serve);
 app.use("/documentation", swaggerDoc.setup(swaggerDocumentations));
-app.use(cors());
-
-// ROUTES
-app.get("/", (req, res) => {
-  res.send(" home-Page");
-});
 
 //CONNECT TO db
 const connectDB = async () => {
