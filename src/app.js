@@ -6,6 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import swaggerDoc from "swagger-ui-express";
 import swaggerDocumentations from "./helpers/documentation";
+const PORT = process.env.PORT || 3000;
 const app = express();
 dotenv.config();
 // ROUTES
@@ -30,13 +31,30 @@ app.get("/", (req, res) => {
 });
 
 //CONNECT TO db
-mongoose.set("strictQuery", true);
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log("connected to DB");
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB_CONNECTION);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+//Connect to the database before listening
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("connect to DB");
+  });
 });
 
-// Listen to the server
+// mongoose.set("strictQuery", true);
+// mongoose.connect(process.env.DB_CONNECTION, () => {
+//   console.log("connected to DB");
+// });
 
-app.listen(3000);
+// // Listen to the server
+
+// app.listen(3000);
 
 export default app;
