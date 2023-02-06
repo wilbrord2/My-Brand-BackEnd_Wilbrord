@@ -1,13 +1,14 @@
 import express from "express";
 import messageRouts from "./message";
 import userRout from "./user";
-import userverifiedToken from "./authverified";
 import articleRoutes from "./blog";
 const routes = express.Router();
 
-routes.use("/messages", messageRouts);
+//import userverifiedToken from "./authverified";
+//routes.use("/testToken", userverifiedToken);
+
 routes.use("/user", userRout);
-routes.use("/access", userverifiedToken);
+routes.use("/messages", messageRouts);
 routes.use("/article", articleRoutes);
 
 routes.get("/", (req, res) => {

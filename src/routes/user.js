@@ -6,6 +6,7 @@ import {
   deleteUser,
   loginUser,
 } from "../contollers/userController";
+import { adminPermissions } from "./permission";
 const routes = express.Router();
 
 // check we are on page
@@ -14,11 +15,10 @@ routes.get("/register", async (req, res) => {
 });
 
 // SIGN-UP
-
 routes.post("/createUser", createUser);
-routes.get("/getAllUsers", getAllUsers);
-routes.get("/getSingleUser/:userId", getSingleUser);
-routes.delete("/deleteUser/:userId", deleteUser);
+routes.get("/getAllUsers", adminPermissions, getAllUsers);
+routes.get("/getSingleUser/:userId", adminPermissions, getSingleUser);
+routes.delete("/deleteUser/:userId", adminPermissions, deleteUser);
 
 //LOGIN
 routes.post("/login", loginUser);
