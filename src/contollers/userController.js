@@ -62,18 +62,33 @@ const deleteUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+  const client = req.body;
+  const adminemail = "bwilbrord@gmail.com";
+  let validPasword, validAdminPassword;
   // CHECK VALIDATION
   const { error } = signInvalidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   // CHECK IF EMAIL EXIST
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: client.email });
+  const admin = await User.findOne({ email: adminemail });
   if (!user) return res.status(400).send("email does not exist");
-  // CHECK PASSWORD
-  const validPasword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPasword) return res.status(400).send("password does not match");
+  else {
+    // CHECK PASSWORD
+    validPasword = await bcrypt.compare(req.body.password, user.password);
+  }
 
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send(token);
+  if (!admin) return res.status(400).send("email does not exist");
+  else {
+    // CHECK PASSWORD
+    validAdminPassword = await bcrypt.compare(req.body.password, user.password);
+  }
+
+  if (!validPasword || !validAdminPassword)
+    return res.status(400).send("password does not match");
+  else {
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    res.header("authtoken", token).send(token);
+  }
 };
 export { createUser, getAllUsers, getSingleUser, deleteUser, loginUser };

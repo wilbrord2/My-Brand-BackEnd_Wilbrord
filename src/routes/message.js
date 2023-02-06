@@ -5,20 +5,19 @@ import {
   SearchMessage,
   deleteMessage,
 } from "../contollers/messageControler";
-
+import { adminPermissions } from "./permission";
 const routes = express.Router();
-
-// Display all Message from database
-routes.get("/show", GetAllMessage);
 
 // // Sending Message to database
 routes.post("/save", SaveMessage);
 
-// SEARCH FOR A SPECIFIC Message
+// Display all Message from database
+routes.get("/show", adminPermissions, GetAllMessage);
 
-routes.get("/getOne/:messageId", SearchMessage);
+// SEARCH FOR A SPECIFIC Message
+routes.get("/getOne/:messageId", adminPermissions, SearchMessage);
 
 // delete a specific Message
-routes.delete("/deleteOne/:messageId", deleteMessage);
+routes.delete("/deleteOne/:messageId", adminPermissions, deleteMessage);
 
 export default routes;
