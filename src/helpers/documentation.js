@@ -10,7 +10,7 @@ const swaggerDocumentations = {
   },
   servers: [
     {
-      url: "http://localhost:3000",
+      url: "https://wilbrord-mybrand-backend.up.railway.app/documentation",
       name: "development server",
     },
   ],
