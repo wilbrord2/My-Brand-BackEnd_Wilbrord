@@ -13,13 +13,13 @@ const routes = express.Router();
 routes.post("/createArticle", permission, createArticle);
 
 // Display all Blogs from database
-routes.get("/getAllArticle", permission, displayAllArticle);
+routes.get("/getAllArticle", displayAllArticle);
 // SEARCH FOR A SPECIFIC BLOG
 
-routes.get("/getSingleArticle/:blogId", permission, getSingleArticle);
+routes.get("/getSingleArticle/:blogId", getSingleArticle);
 
 // delete a specific post
-routes.delete("/deleteArticle/:blogId",adminPermissions, deleteArticle);
+routes.delete("/deleteArticle/:blogId", adminPermissions, deleteArticle);
 
 // UPPDATE A POST
 
