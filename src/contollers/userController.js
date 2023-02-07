@@ -62,9 +62,11 @@ const deleteUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+
   const client = req.body;
   const adminemail = "bwilbrord@gmail.com";
   let validPasword, validAdminPassword;
+
   // CHECK VALIDATION
   const { error } = signInvalidation(req.body);
   if (error) return res.status(400).json(error.details[0].message);
@@ -72,23 +74,25 @@ const loginUser = async (req, res) => {
   // CHECK IF EMAIL EXIST
   const user = await User.findOne({ email: client.email });
   const admin = await User.findOne({ email: adminemail });
-  if (!user) return res.status(400).json("email does not exist");
+
+  if (!user) return res.status(400).json("email or password does not exist");
   else {
     // CHECK PASSWORD
     validPasword = await bcrypt.compare(req.body.password, user.password);
   }
 
-  if (!admin) return res.status(400).json("email does not exist");
+  if (!admin) return res.status(400).json("email or password does not exist");
   else {
     // CHECK PASSWORD
     validAdminPassword = await bcrypt.compare(req.body.password, user.password);
   }
 
   if (!validPasword || !validAdminPassword)
-    return res.status(400).json("password does not match");
+    return res.status(400).json("email or password does not exist");
   else {
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
     res.header("authtoken", token).json(token);
+    
   }
 };
 export { createUser, getAllUsers, getSingleUser, deleteUser, loginUser };
