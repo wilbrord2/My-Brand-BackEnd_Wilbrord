@@ -9,17 +9,11 @@ import swaggerDocumentations from "./helpers/documentation";
 import routes from "./routes";
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.use(cors());
 dotenv.config();
 // Middlewares
 // bodyParser
 app.use(bodyParser.json());
-app.use(
-  cors({
-    origin: "*",
-    credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-  })
-);
 app.use("/api", routes);
 app.use("/documentation", swaggerDoc.serve);
 app.use("/documentation", swaggerDoc.setup(swaggerDocumentations));
