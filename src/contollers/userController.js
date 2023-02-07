@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
   });
   try {
     const SavedUser = await newUser.save();
-    res.json(SavedUser);
+    res.status(200).json("Successfully create account You can login now");
   } catch (err) {
     res.status(400).json(err);
   }
