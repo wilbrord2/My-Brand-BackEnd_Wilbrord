@@ -15,7 +15,8 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "http://127.0.0.1:5500",
+    optionsSuccessStatus: 200
   })
 );
 app.use("/api", routes);
