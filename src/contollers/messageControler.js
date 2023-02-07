@@ -17,9 +17,9 @@ const SaveMessage = async (req, res) => {
   });
   try {
     const SavedPost = await Mypost.save();
-    res.json(SavedPost);
+    res.status(200).json("Thank you for your feedback");
   } catch (err) {
-    res.status(202).json({ message: err.message });
+    res.status(402).json({ message: err.message });
   }
 };
 
