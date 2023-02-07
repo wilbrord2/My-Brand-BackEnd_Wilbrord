@@ -62,7 +62,6 @@ const deleteUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-
   const client = req.body;
   const adminemail = "bwilbrord@gmail.com";
   let validPasword, validAdminPassword;
@@ -91,8 +90,7 @@ const loginUser = async (req, res) => {
     return res.status(400).json("email or password does not exist");
   else {
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-    res.header("authtoken", token).json(token);
-    
+    res.header("authtoken", token).json("authtoken", token);
   }
 };
 export { createUser, getAllUsers, getSingleUser, deleteUser, loginUser };
