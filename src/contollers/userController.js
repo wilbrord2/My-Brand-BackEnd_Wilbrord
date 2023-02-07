@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
     return res.status(400).json("email or password does not exist");
   else {
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-    res.header("authtoken", token).json("authtoken", token);
+    res.header("authtoken", token).json(token);
   }
 };
 export { createUser, getAllUsers, getSingleUser, deleteUser, loginUser };
