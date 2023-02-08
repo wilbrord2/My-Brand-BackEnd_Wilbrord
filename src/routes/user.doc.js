@@ -3,11 +3,11 @@ const listOfAllUser = {
   tags: ["User"],
   description: "list of all User",
 
-  // security: [
-  //   {
-  //     auth_token: [],
-  //   },
-  // ],
+  security: [
+    {
+      authtoken: [],
+    },
+  ],
   responses: {
     200: {
       description: "OK",
@@ -125,7 +125,7 @@ const getOneUser = {
 const deleteUser = {
   tags: ["User"],
   description: "Delete a user",
-  security: [{ auth_token: [] }],
+  security: [{ authtoken: [] }],
   parameters: [
     {
       name: "id",
@@ -147,6 +147,56 @@ const deleteUser = {
     },
   },
 };
+
+// login user swagger documentation
+const login = {
+  tags: ["User"],
+  description: "Login",
+  requestBody: {
+    content: {
+      "Application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            email: {
+              type: "string",
+              description: "email",
+              example: "email@gmail.com",
+            },
+            password: {
+              type: "string",
+              description: "user",
+              example: "******",
+            },
+          },
+        },
+      },
+    },
+    responses: {
+      200: {
+        description: "OK",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                message: {
+                  type: "string",
+                  description: "user message",
+                },
+                data: {
+                  type: "string",
+                  description: "JWT assigned to the user",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 const userRouteDoc = {
   "/api/user/getAllUsers": {
     get: listOfAllUser,
@@ -159,6 +209,9 @@ const userRouteDoc = {
   },
   "/api/user/deleteUser/{id}": {
     delete: deleteUser,
+  },
+  "api/user/login": {
+    post: login,
   },
 };
 

@@ -8,6 +8,22 @@ const swaggerDocumentations = {
     Version: "0.1.0",
     description: "This is the backend of my BRAND",
   },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        in: "headers",
+        bearerformat: "JWT",
+      },
+    },
+  },
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
+
   servers: [
     {
       url: "https://wilbrord-mybrand-backend.up.railway.app",

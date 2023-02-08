@@ -16,7 +16,7 @@ routes.get("/register", async (req, res) => {
 
 // SIGN-UP
 routes.post("/createUser", createUser);
-routes.get("/getAllUsers", getAllUsers);
+routes.get("/getAllUsers",adminPermissions, getAllUsers);
 routes.get("/getSingleUser/:userId", adminPermissions, getSingleUser);
 routes.delete("/deleteUser/:userId", adminPermissions, deleteUser);
 

@@ -49,7 +49,7 @@ const UpdateArticle = async (req, res) => {
   try {
     const update = await Post.updateOne(
       { _id: req.params.blogId },
-      { $set: { title: req.body.title } }
+      { $set: { title: req.body.title, description: req.body.description } }
     );
     res.json(update);
   } catch (err) {
