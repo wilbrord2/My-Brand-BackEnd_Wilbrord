@@ -153,41 +153,62 @@ const login = {
   tags: ["User"],
   description: "Login",
   requestBody: {
+    required: true,
     content: {
-      "Application/json": {
+      "application/json": {
         schema: {
           type: "object",
+          required: ["email", "password"],
           properties: {
             email: {
               type: "string",
-              description: "email",
+              description: "Email address of the user",
               example: "email@gmail.com",
             },
             password: {
               type: "string",
-              description: "user",
+              description: "Password of the user",
               example: "******",
             },
           },
         },
       },
     },
-    responses: {
-      200: {
-        description: "OK",
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                message: {
-                  type: "string",
-                  description: "user message",
-                },
-                data: {
-                  type: "string",
-                  description: "JWT assigned to the user",
-                },
+  },
+  responses: {
+    200: {
+      description: "OK",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              message: {
+                type: "string",
+                description: "Success message",
+                example: "Login successful",
+              },
+              data: {
+                type: "string",
+                description: "JWT assigned to the user",
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+              },
+            },
+          },
+        },
+      },
+    },
+    401: {
+      description: "Unauthorized",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              message: {
+                type: "string",
+                description: "Error message",
+                example: "Invalid email or password",
               },
             },
           },
@@ -196,6 +217,7 @@ const login = {
     },
   },
 };
+
 
 const userRouteDoc = {
   "/api/user/getAllUsers": {
