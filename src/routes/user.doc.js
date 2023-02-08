@@ -2,24 +2,42 @@
 const listOfAllUser = {
   tags: ["User"],
   description: "list of all User",
-
-  security: [
-    {
-      authtoken: [],
-    },
-  ],
+  // security: [
+  //   {
+  //     authtoken: [],
+  //   },
+  // ],
   responses: {
     200: {
       description: "OK",
       content: {
         "application/json": {
           schema: {
-            type: "object",
-            example: {
-              _id: "63c5554511120c1b217b1d31",
-              name: "Wilbrord",
-              email: "wilbrord@gmail.com",
-              __v: 0,
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                _id: {
+                  type: "string",
+                  description: "Unique identifier for the user",
+                  example: "63c5554511120c1b217b1d31",
+                },
+                name: {
+                  type: "string",
+                  description: "Name of the user",
+                  example: "Wilbrord",
+                },
+                email: {
+                  type: "string",
+                  description: "Email of the user",
+                  example: "wilbrord@gmail.com",
+                },
+                __v: {
+                  type: "integer",
+                  description: "Version of the user document",
+                  example: 0,
+                },
+              },
             },
           },
         },
@@ -27,6 +45,7 @@ const listOfAllUser = {
     },
   },
 };
+
 //create a blog swagger documentation
 
 const createuser = {
@@ -90,11 +109,11 @@ const createuser = {
 const getOneUser = {
   tags: ["User"],
   description: "get single user by id",
-  security: [
-    {
-      auth_token: [],
-    },
-  ],
+  // security: [
+  //   {
+  //     authtoken: [],
+  //   },
+  // ],
   parameters: [
     {
       name: "id",
@@ -125,7 +144,7 @@ const getOneUser = {
 const deleteUser = {
   tags: ["User"],
   description: "Delete a user",
-  security: [{ authtoken: [] }],
+  // security: [{ authtoken: [] }],
   parameters: [
     {
       name: "id",
@@ -163,12 +182,12 @@ const login = {
             email: {
               type: "string",
               description: "Email address of the user",
-              example: "email@gmail.com",
+              example: "bwilbrord@gmail.com",
             },
             password: {
               type: "string",
               description: "Password of the user",
-              example: "******",
+              example: "123456",
             },
           },
         },
@@ -191,7 +210,8 @@ const login = {
               data: {
                 type: "string",
                 description: "JWT assigned to the user",
-                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                example:
+                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
               },
             },
           },
@@ -218,7 +238,6 @@ const login = {
   },
 };
 
-
 const userRouteDoc = {
   "/api/user/getAllUsers": {
     get: listOfAllUser,
@@ -232,7 +251,7 @@ const userRouteDoc = {
   "/api/user/deleteUser/{id}": {
     delete: deleteUser,
   },
-  "api/user/login": {
+  "/api/user/login": {
     post: login,
   },
 };

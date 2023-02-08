@@ -2,6 +2,7 @@
 const listOfAllArticles = {
   tags: ["Blogs"],
   description: "list of all blogs",
+  // security: [{ authtoken: [] }],
   responses: {
     200: {
       description: "OK",
@@ -25,7 +26,7 @@ const listOfAllArticles = {
 //get single blog by id swagger documentation
 const getonearticle = {
   tags: ["Blogs"],
-  // summary: "get user by path id",
+  // security: [{ authtoken: [] }],
   description: "get single blog by id",
   parameters: [
     {
@@ -57,11 +58,7 @@ const getonearticle = {
 const createArticle = {
   tags: ["Blogs"],
   description: "create a new blog",
-  security: [
-    {
-      token: [],
-    },
-  ],
+  // security: [{ authtoken: [] }],
   requestBody: {
     content: {
       "Application/json": {
@@ -107,11 +104,7 @@ const createArticle = {
 const updateArticle = {
   tags: ["Blogs"],
   description: "Update a blog",
-  security: [
-    {
-      token: [],
-    },
-  ],
+  // security: [{ authtoken: [] }],
   parameters: [
     {
       name: "id",
@@ -184,7 +177,7 @@ const updateArticle = {
 const deleteArticle = {
   tags: ["Blogs"],
   description: "Delete a blog",
-  security: [{ auth_token: [] }],
+  // security: [{ authtoken: [] }],
   parameters: [
     {
       name: "id",

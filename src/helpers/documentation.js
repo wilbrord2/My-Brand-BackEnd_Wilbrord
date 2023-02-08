@@ -10,17 +10,19 @@ const swaggerDocumentations = {
   },
   components: {
     securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        in: "headers",
-        bearerformat: "JWT",
+      customAuth: {
+        type: "apiKey",
+        in: "header",
+        name: "authtoken",
       },
     },
   },
   security: [
     {
-      bearerAuth: [],
+      customAuth: {
+        key: "",
+        token: "",
+      },
     },
   ],
 

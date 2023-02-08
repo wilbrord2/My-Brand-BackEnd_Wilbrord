@@ -5,7 +5,7 @@ const listOfAllMessages = {
 
   // security: [
   //   {
-  //     auth_token: [],
+  //     authtoken: [],
   //   },
   // ],
   responses: {
@@ -96,11 +96,11 @@ const getonemessage = {
   summary: "get user by path id",
   description: "get single message by id",
 
-  security: [
-    {
-      auth_token: [],
-    },
-  ],
+  // security: [
+  //   {
+  //     authtoken: [],
+  //   },
+  // ],
   parameters: [
     {
       name: "id",
@@ -131,7 +131,7 @@ const getonemessage = {
 const deletemessage = {
   tags: ["Messages"],
   description: "Delete a message",
-  security: [{ auth_token: [] }],
+  // security: [{ authtoken: [] }],
   parameters: [
     {
       name: "id",
