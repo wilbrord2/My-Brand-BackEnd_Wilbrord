@@ -1,10 +1,32 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import app from "../app";
-
+import { jwt } from "jsonwebtoken";
 chai.should();
 chai.use(chaiHttp);
 let id;
+
+let token;
+
+describe("Login", () => {
+  it("should login and return a token", (done) => {
+    chai
+      .request(app)
+      .post("/api/user/login/")
+      .send({
+        email: "bwilbrord@gmail.com",
+        password: "123456",
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        res.should.have.status(200);
+        res.body.should.be.an("object");
+        token = res.body;
+        done();
+      });
+  });
+});
+
 //create message test
 describe("Create Message", () => {
   it("should create a contact message", (done) => {
@@ -34,6 +56,7 @@ describe("Get all messages", () => {
     chai
       .request(app)
       .get("/api/messages/show/")
+      .set("authtoken", `${token.data}`)
       .end((err, res) => {
         res.should.have.status(200);
         // res.should.be.a("array");
@@ -47,7 +70,7 @@ describe("get single message by id", () => {
     chai
       .request(app)
       .get(`/api/messages/getOne/${id}`)
-
+      .set("authtoken", `${token.data}`)
       .end((err, res) => {
         if (err) return done(err);
         res.should.have.status(200);
@@ -61,7 +84,7 @@ describe("Delete single message by id", () => {
     chai
       .request(app)
       .delete(`/api/messages/deleteOne/${id}`)
-
+      .set("authtoken", `${token.data}`)
       .end((err, res) => {
         if (err) return done(err);
         // res.should.have.status(200);
