@@ -94,6 +94,7 @@ const loginUser = async (req, res) => {
     res.json({
       message: "welcome",
       user: user.email,
+      name: user.name,
       data: token,
     });
   }
