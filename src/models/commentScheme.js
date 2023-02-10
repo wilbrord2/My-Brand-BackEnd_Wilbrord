@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const commentandlike = mongoose.Schema({
-  id: {
+  blogid: {
     type: String,
     required: true,
   },

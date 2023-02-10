@@ -2,7 +2,7 @@ const commenteandlike = require("../models/commentScheme");
 
 const addcommentandlike = async (req, res) => {
   const CommenteandLike = new commenteandlike({
-    id:req.body.id,
+    blogid:req.body.id,
     comments: req.body.comment,
     likes: req.body.like,
   });
