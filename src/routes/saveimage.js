@@ -12,14 +12,14 @@ cloudinary.config({
 routes.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
-    let savedImage = new cloudinaryScheme({
-      blogid: req.body.id,
-      name: req.body.name,
+    let SavedPost = new cloudinaryScheme({
+      title: req.body.title,
+      description: req.body.description,
       avatar: result.secure_url,
       cloudinary_id: result.public_id,
     });
-    await savedImage.save();
-    res.json(savedImage);
+    await SavedPost.save();
+    res.json(SavedPost);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -52,7 +52,7 @@ routes.put("/updateimage/:id", upload.single("image"), async (req, res) => {
       result = await cloudinary.uploader.upload(req.file.path);
     }
     const data = {
-      blogid:req.body.id || user.blogid,
+      blogid: req.body.id || user.blogid,
       name: req.body.name || user.name,
       avatar: result?.secure_url || user.avatar,
       cloudinary_id: result?.public_id || user.cloudinary_id,
@@ -70,7 +70,7 @@ routes.get("/getoneimage/:id", async (req, res) => {
   try {
     // Find user by id
     let user = await cloudinaryScheme.findById({ _id: req.params.id });
-    res.json(user); 
+    res.json(user);
   } catch (err) {
     console.log(err);
   }

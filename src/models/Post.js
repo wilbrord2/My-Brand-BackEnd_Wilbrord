@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const postScheme = mongoose.Schema({
+import mongoose from "mongoose";
+const saveimage = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -8,10 +8,12 @@ const postScheme = mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
+  avatar: {
+    type: String,
+  },
+  cloudinary_id: {
+    type: String,
   },
 });
 
-module.exports = mongoose.model("BLOGS", postScheme);
+module.exports = mongoose.model("BLOGS", saveimage);

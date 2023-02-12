@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 const saveimage = new mongoose.Schema({
-  blogid: {
+  title: {
     type: String,
     required: true,
   },
-  name: {
+  description: {
     type: String,
     required: true,
   },
@@ -16,4 +16,4 @@ const saveimage = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("images", saveimage);
+module.exports = mongoose.model("BLOGS", saveimage);
