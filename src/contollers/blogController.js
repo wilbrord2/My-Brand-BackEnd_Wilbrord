@@ -1,6 +1,4 @@
-// import cloudinaryScheme from "../models/cloudinaryScheme";
 const Post = require("../models/Post");
-const upload = require("../utils/multer");
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "dzluvxcys",
@@ -37,7 +35,7 @@ const displayAllArticle = async (req, res) => {
 const getSingleArticle = async (req, res) => {
   try {
     const post = await Post.findById(req.params.blogId);
-    if (!post) res.json(post || "not found");
+    res.json(post);
   } catch (err) {
     res.json(err);
   }

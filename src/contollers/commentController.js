@@ -2,9 +2,11 @@ const commenteandlike = require("../models/commentScheme");
 
 const addcommentandlike = async (req, res) => {
   const CommenteandLike = new commenteandlike({
-    blogid:req.body.id,
-    comments: req.body.comment,
-    likes: req.body.like,
+    blogid: req.body.id,
+    name: req.body.name,
+    email: req.body.email,
+    comment: req.body.comment,
+    likes: req.body.likes,
   });
   try {
     const SavedcommLike = await CommenteandLike.save();

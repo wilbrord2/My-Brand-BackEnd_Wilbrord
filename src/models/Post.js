@@ -14,6 +14,10 @@ const saveimage = new mongoose.Schema({
   cloudinary_id: {
     type: String,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("BLOGS", saveimage);

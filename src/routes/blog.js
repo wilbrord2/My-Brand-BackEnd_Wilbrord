@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 const Post = require("../models/Post");
 import {
   displayAllArticle,
@@ -7,7 +8,8 @@ import {
 } from "../contollers/blogController";
 import { permission, adminPermissions } from "./permission";
 const routes = express.Router();
-const upload = require("../utils/multer");
+const storage = multer.memoryStorage();
+const upload = require("../utils/multer", { storage: storage });
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "dzluvxcys",
@@ -22,6 +24,7 @@ routes.post(
   upload.single("image"),
   async (req, res) => {
     // console.log(req.file);
+    //console.log(req.body);
     try {
       const result = await cloudinary.uploader.upload(req.file.path);
       let SavedPost = new Post({
@@ -33,16 +36,17 @@ routes.post(
       await SavedPost.save();
       res.json("saved successfull");
     } catch (err) {
+      console.log(err);
       res.status(400).json({ message: err.message });
     }
   }
 );
 
 // Display all Blogs from database
-routes.get("/getAllArticle", permission, displayAllArticle);
+routes.get("/getAllArticle", displayAllArticle);
 // SEARCH FOR A SPECIFIC BLOG
 
-routes.get("/getSingleArticle/:blogId", permission, getSingleArticle);
+routes.get("/getSingleArticle/:blogId", getSingleArticle);
 
 // delete a specific post
 routes.delete("/deleteArticle/:blogId", adminPermissions, deleteArticle);
