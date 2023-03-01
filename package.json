@@ -8,7 +8,7 @@
     "start": "npm run build && node dist/app.js",
     "dev": "nodemon --exec babel-node src/app.js",
     "test": " nyc --reporter=html --coverage --reporter=text mocha --recursive --exit  --require @babel/register src/**/*.js --timeout 500000 --exit || true",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "author": "wilbrord",
   "license": "ISC",
