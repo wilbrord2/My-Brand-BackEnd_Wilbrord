@@ -29,11 +29,11 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: test-results
-notify:
-  webhooks:
-    - url:https://coveralls.io/webhook?repo_token=$%7BVIjYKjy2XDvjXlDijIzGf3XxHOtHMkWPB%7D
 
 workflows:
   orb-free-workflow:
     jobs:
       - test
+notify:
+  webhooks:
+    - url:https://coveralls.io/webhook?repo_token=$%7BVIjYKjy2XDvjXlDijIzGf3XxHOtHMkWPB%7D
