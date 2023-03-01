@@ -29,7 +29,6 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
 //Connect to the database before listening
 connectDB().then(() => {
   app.listen(PORT, () => {
