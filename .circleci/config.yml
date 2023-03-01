@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: 'INSTALLING DEPENDENCY'
-          command: npm install --save
+          command: npm install 
           environment:
             DATABASEURL: DB_CONNECTION
             JWT_SECRETE: TOKEN_SECRET
@@ -33,7 +33,7 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - test
+      - build
 notify:
   webhooks:
     - url:https://coveralls.io/webhook?repo_token=$%7BVIjYKjy2XDvjXlDijIzGf3XxHOtHMkWPB%7D
