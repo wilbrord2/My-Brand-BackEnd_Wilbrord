@@ -2,14 +2,14 @@ version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.6
 jobs:
- build:
+  build:
     docker:
       - image: circleci/node:16.1
     steps:
       - checkout
       - run:
-          name: 'INSTALLING DEPENDENCY'
-          command: npm install 
+          name: "INSTALLING DEPENDENCY"
+          command: npm install
           environment:
             DATABASEURL: DB_CONNECTION
             JWT_SECRETE: TOKEN_SECRET
@@ -20,6 +20,10 @@ jobs:
       - run:
           name: Run Tests
           command: npm run test
+      - run:
+          name: Run coverage
+          command: npm run coverage
+
       - coveralls/upload
       - store_artifacts:
           path: test-results
